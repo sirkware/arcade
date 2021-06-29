@@ -1,0 +1,7 @@
+{
+  "name": "arcade",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}

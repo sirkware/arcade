@@ -1,0 +1,6 @@
+{
+	"appId": "io.ionic.starter",
+	"appName": "arcade",
+	"webDir": "build",
+	"bundledWebRuntime": false
+}
