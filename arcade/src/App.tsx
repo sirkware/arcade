@@ -2,6 +2,9 @@ import { Redirect, Route } from 'react-router-dom';
 import { IonApp, IonRouterOutlet } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import Home from './pages/Home';
+import Games from './pages/Games';
+import Store from './pages/Store';
+import Earn from './pages/Earn';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -31,6 +34,15 @@ const App: React.FC = () => (
         </Route>
         <Route exact path="/">
           <Redirect to="/home" />
+        </Route>
+        <Route exact path="/games">
+          <Games />
+        </Route>
+        <Route exact path="/store">
+          <Store />
+        </Route>
+        <Route exact path="/earn">
+          <Earn />
         </Route>
       </IonRouterOutlet>
     </IonReactRouter>
