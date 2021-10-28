@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import Games from './pages/Games';
 import Store from './pages/Store';
 import Earn from './pages/Earn';
+import Demo from './pages/Demo';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -43,6 +44,9 @@ const App: React.FC = () => (
         </Route>
         <Route exact path="/earn">
           <Earn />
+        </Route>
+        <Route exact path="/demo">
+          <Demo />
         </Route>
       </IonRouterOutlet>
     </IonReactRouter>

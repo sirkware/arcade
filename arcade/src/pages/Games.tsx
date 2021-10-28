@@ -1,4 +1,4 @@
-import {IonPage, IonContent, IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonGrid, IonRow, IonCol, IonImg} from "@ionic/react";
+import {IonPage, IonContent, IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonGrid, IonRow, IonCol, IonImg, IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCardContent} from "@ionic/react";
 import './Games.css';
 
 const Games: React.FC = () => {
@@ -16,22 +16,54 @@ const Games: React.FC = () => {
                 <IonGrid>
                     <IonRow>
                         <IonCol>
-                            <IonImg src='http://placekitten.com/g/300/301'></IonImg>
-                            First Game
+                            <IonCard button routerLink="/demo">
+                                <IonCardHeader>
+                                    <IonCardSubtitle>Very Cool!</IonCardSubtitle>
+                                    <IonCardTitle>Demo Game</IonCardTitle>
+                                </IonCardHeader>
+
+                                <IonCardContent>
+                                    <IonImg src='http://placekitten.com/g/300/301'></IonImg>
+                                </IonCardContent>
+                            </IonCard>
                         </IonCol>
                         <IonCol>
-                            <IonImg src='http://placekitten.com/g/300/302'></IonImg>
-                            Second Game
+                            <IonCard>
+                                <IonCardHeader>
+                                    <IonCardSubtitle>Card Subtitle</IonCardSubtitle>
+                                    <IonCardTitle>Second Game</IonCardTitle>
+                                </IonCardHeader>
+
+                                <IonCardContent>
+                                    <IonImg src='http://placekitten.com/g/300/303'></IonImg>
+                                </IonCardContent>
+                            </IonCard>
                         </IonCol>
                     </IonRow>
                     <IonRow>
                         <IonCol>
-                            <IonImg src='http://placekitten.com/g/300/307'></IonImg>
-                            Third Game
+                            <IonCard>
+                                <IonCardHeader>
+                                    <IonCardSubtitle>Card Subtitle</IonCardSubtitle>
+                                    <IonCardTitle>Third Game</IonCardTitle>
+                                </IonCardHeader>
+
+                                <IonCardContent>
+                                    <IonImg src='http://placekitten.com/g/300/308'></IonImg>
+                                </IonCardContent>
+                            </IonCard>
                         </IonCol>
                         <IonCol>
-                            <IonImg src='http://placekitten.com/g/300/304'></IonImg>
-                            Fourth Game
+                            <IonCard>
+                                <IonCardHeader>
+                                    <IonCardSubtitle>Card Subtitle</IonCardSubtitle>
+                                    <IonCardTitle>Fourth Game</IonCardTitle>
+                                </IonCardHeader>
+
+                                <IonCardContent>
+                                    <IonImg src='http://placekitten.com/g/300/305'></IonImg>
+                                </IonCardContent>
+                            </IonCard>
                         </IonCol>
                     </IonRow>
                 </IonGrid>

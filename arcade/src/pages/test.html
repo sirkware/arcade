@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <title>Babylon Template</title>
+
+        <style>
+            html, body {
+                overflow: hidden;
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+
+            #renderCanvas {
+                width: 100%;
+                height: 100%;
+                touch-action: none;
+            }
+        </style>
+
+        <script src="https://cdn.babylonjs.com/babylon.js"></script>
+        <script src="https://cdn.babylonjs.com/loaders/babylonjs.loaders.min.js"></script>
+        <script src="https://code.jquery.com/pep/0.4.3/pep.js"></script>
+    </head>
+
+   <body>
+
+    <canvas id="renderCanvas" touch-action="none"></canvas> <!-- touch-action="none" for best results from PEP -->
+
+    <script>
+        const canvas = document.getElementById("renderCanvas"); // Get the canvas element
+        const engine = new BABYLON.Engine(canvas, true); // Generate the BABYLON 3D engine
+
+
+        // Add your code here matching the playground format
+        const createScene = function () {
+    
+            const scene = new BABYLON.Scene(engine);  
+
+            var pushButtonMaterial = new BABYLON.StandardMaterial("pushButtonMaterial");
+            pushButtonMaterial.diffuseTexture = new BABYLON.Texture("./textures/soap_bar_texture.png");
+
+            var winPaddleMaterial = new BABYLON.StandardMaterial("winPaddleMaterial");
+            winPaddleMaterial.diffuseTexture = new BABYLON.Texture("./textures/soap_bar_texture2.png");
+
+
+            BABYLON.SceneLoader.ImportMeshAsync("", "/models/", "soap_bar.babylon").then((result) => {
+                var pushButton = result.meshes[0];
+                pushButton.material = pushButtonMaterial;
+
+                var winPaddle = pushButton.clone();
+                winPaddle.material = winPaddleMaterial;
+                winPaddle.animations = [];
+
+                winPaddle.position.z = 10;
+                pushButton.position.z = -10;
+
+                const framerate = 30;
+
+                decideOutcomeAction = new BABYLON.ExecuteCodeAction(
+                    BABYLON.ActionManager.OnPickTrigger,
+                    //determine, based on random chance and current rotation of paddle, which animation(s) to play
+                    function () {
+                        //get current orientation of paddle
+                        var winSideFacingCamera;
+                        if (winPaddle.rotation.x == 2 * Math.PI) {
+                            winPaddle.rotation.x = 0;
+                        } else if (winPaddle.rotation.x == 3 * Math.PI) {
+                            winPaddle.rotation.x = Math.PI;
+                        }
+                        console.log("start of function winPaddle.rotation.x: " + winPaddle.rotation.x);
+                        if (winPaddle.rotation.x == Math.PI) {
+                            winSideFacingCamera = false;
+                        } else {
+                            winSideFacingCamera = true;
+                        }
+                        console.log("winSideFacingCamera: " + winSideFacingCamera);
+
+                        //animation to spin winPaddle
+                        const animPaddle = new BABYLON.Animation("animPaddle", "rotation.x", framerate, BABYLON.Animation.ANIMATIONTYPE_FLOAT);
+                        const paddleKeys = [];
+
+                        // flip PI rads win or lose
+                        paddleKeys.push({
+                            frame: 0,
+                            value: winPaddle.rotation.x
+                        });
+                        paddleKeys.push({
+                            frame: framerate / 2,
+                            value: winPaddle.rotation.x + Math.PI
+                        });
+
+                        // determine if player wins
+                        if (Math.random() < 0.5) {
+                            console.log("win");
+                            //won this time so...
+                            //if you won last time
+                            if (winSideFacingCamera) {
+                                paddleKeys.push({
+                                    frame: framerate,
+                                    value: winPaddle.rotation.x + (2 * Math.PI)
+                                });
+                            }
+                        } else {
+                            console.log("lose");
+                            //lost this time so...
+                            //if you lose last time
+                            if (!winSideFacingCamera) {
+                                paddleKeys.push({
+                                    frame: framerate,
+                                    value: winPaddle.rotation.x + (2 * Math.PI)
+                                });
+                            }
+                        }
+
+                        animPaddle.setKeys(paddleKeys);
+                        winPaddle.animations = [(animPaddle)];
+
+                        scene.beginAnimation(winPaddle, 0, framerate);
+                    }
+                );
+
+
+                pushButton.actionManager = new BABYLON.ActionManager(scene);
+                pushButton.isPickable = true; ///AHHHHHHHHHHHHAHAHAHAHAHA I fucking figured it out DAMN they could have mentioned this in the ACtions section of docs
+                pushButton.actionManager.registerAction(decideOutcomeAction);
+            });
+
+
+            // const camera = new BABYLON.ArcRotateCamera("camera", -Math.PI / 2, Math.PI / 2.5, 15, new BABYLON.Vector3(0, 0, 0));
+            const camera = new BABYLON.ArcRotateCamera("camera", -Math.PI / 2, 0, 50, new BABYLON.Vector3(0, 0, 0));
+
+            camera.attachControl(canvas, true);
+            const light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(1, 1, 0));
+
+            return scene;
+        };
+
+        const scene = createScene(); //Call the createScene function
+
+        // Register a render loop to repeatedly render the scene
+        engine.runRenderLoop(function () {
+                scene.render();
+        });
+
+        // Watch for browser/canvas resize events
+        window.addEventListener("resize", function () {
+                engine.resize();
+        });
+
+
+    </script>
+
+   </body>
+
+</html>
