@@ -9,12 +9,12 @@ const Demo: React.FC = () => {
                     <IonToolbar>
                         <IonTitle>Demo</IonTitle>
                         <IonButtons slot="start">
-                            <IonButton routerLink="/home">Back</IonButton>
+                            <IonButton routerLink="/games">Back</IonButton>
                         </IonButtons>
                     </IonToolbar>
                 </IonHeader>
+                
             </IonContent>
-            
         </IonPage>
     );
 };
