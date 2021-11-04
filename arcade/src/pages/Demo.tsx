@@ -13,7 +13,7 @@ const Demo: React.FC = () => {
                         </IonButtons>
                     </IonToolbar>
                 </IonHeader>
-                
+
             </IonContent>
         </IonPage>
     );
