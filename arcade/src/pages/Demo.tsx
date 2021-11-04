@@ -1,4 +1,5 @@
 import {IonPage, IonContent, IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonGrid, IonRow, IonCol, IonImg} from "@ionic/react";
+import BabylonTest from "../components/BabylonTest";
 import './Demo.css';
 
 const Demo: React.FC = () => {
@@ -13,7 +14,7 @@ const Demo: React.FC = () => {
                         </IonButtons>
                     </IonToolbar>
                 </IonHeader>
-
+                <BabylonTest></BabylonTest>
             </IonContent>
         </IonPage>
     );
